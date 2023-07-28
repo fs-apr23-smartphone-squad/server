@@ -1,8 +1,20 @@
 import express from 'express';
+import cors from 'cors';
+import path from 'path';
 
 const PORT = 5000;
 const app = express();
 
+app.use(cors());
+
+app.use(express.static(path.resolve('public')));
+
+app.get('/products', (req, res) => {
+  const filePath = path.resolve('api', 'phones.json');
+
+  res.sendFile(filePath);
+});
+
 app.listen(PORT, () => {
-  console.log('Hello world');
+  console.log('Server is running on http://localhost:5000 🚀🚀🚀');
 });
