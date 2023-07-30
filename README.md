@@ -1,6 +1,8 @@
 # Commands
 
-- To run linter with auto fix - npm fix-style
+- npm run dev - run nodemon
+- npm run fix-style - run linter with auto fix
+- npm run db-cn - connect a database
 
 # Links
 
