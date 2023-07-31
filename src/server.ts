@@ -4,6 +4,7 @@ import path from 'path';
 import { initDB } from './initDB';
 
 const PORT = 5000;
+
 const app = express();
 
 app.use(cors());

@@ -1,6 +1,6 @@
 # Commands
 
-- npm run dev - run nodemon
+- npm run dev - run migrations -> seeds -> nodemon
 - npm run fix-style - run linter with auto fix
 - npm run db-cn - connect a database
 

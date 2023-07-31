@@ -1,14 +1,16 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 @Table({
-  tableName: 'Products'
+  tableName: 'Products',
+  createdAt: false,
+  updatedAt: false
 })
 
 export class Product extends Model {
   @Column({
-    type: DataType.STRING
+    type: DataType.STRING,
+    primaryKey: true
   })
-
     id: string;
 
   @Column({
