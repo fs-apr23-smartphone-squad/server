@@ -1,11 +1,22 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import { initDB } from './initDB';
 
 const PORT = 5000;
 const app = express();
 
 app.use(cors());
+
+// Sequelize starts
+
+const sequelize = initDB();
+
+const res = sequelize.authenticate();
+
+console.log(res);
+
+// Sequelize ends
 
 app.use(express.static(path.resolve('public')));
 
