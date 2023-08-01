@@ -9,7 +9,7 @@
     "run-sd-mg": "npx sequelize db:migrate && npx sequelize db:seed:all",
     "dev": "npm run run-sd-mg && nodemon src/server.ts",
     "format": "prettier --write . --ignore-path .gitignore",
-    "lint": "eslint src/* --ignore-path .gitignore",
+    "lint": "eslint \"**/*.{ts}\" --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "fix-style": "npm run format && npm run lint -- --fix",
     "prepare": "npx husky install",
     "build": "tsc",
