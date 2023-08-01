@@ -18,8 +18,6 @@ console.log(res);
 
 // Sequelize ends
 
-app.use(express.static(path.resolve('public')));
-
 app.get('/products', (req, res) => {
   const filePath = path.resolve('api', 'phones.json');
 
