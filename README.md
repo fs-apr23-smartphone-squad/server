@@ -31,7 +31,7 @@
     * _example_: https://api.smartphonesquad.shop/products?sortBy=year&sortOrder=ASC
     * _example_: https://api.smartphonesquad.shop/products?sortBy=price&sortOrder=DESC 
 
-  * other possible sortings:
+  * other possible sorting combinations:
 
     * /products?limit=6&offset=2&sortBy=year&sortOrder=DESC
     * /products?ids=10,34,55,65&limit=6&offset=0&sortBy=year&sortOrder=DESC
