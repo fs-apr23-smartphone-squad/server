@@ -4,9 +4,8 @@ import { Product } from '../models/Product.model';
 const sortByOptions = ['year', 'price'];
 
 export const getProducts = async (req: Request, res: Response): Promise<void> => {
-  const { ids } = req.query;
-
   const {
+    ids,
     limit = 64,
     offset = 0,
     sortBy = 'year',
