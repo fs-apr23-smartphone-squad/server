@@ -12,12 +12,10 @@ export const initDB = (): Sequelize => {
 
   const DB_URI: string = `postgres://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`;
 
-  return new Sequelize(
-    DB_URI, {
-      models,
-      dialectOptions: {
-        ssl: true
-      }
+  return new Sequelize(DB_URI, {
+    models,
+    dialectOptions: {
+      ssl: true
     }
-  );
+  });
 };
