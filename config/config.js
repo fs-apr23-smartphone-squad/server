@@ -14,26 +14,26 @@ const dbCredentials = {
   password: DB_PASSWORD,
   database: DB_NAME,
   host: DB_HOST,
-  port: DB_PORT
+  port: DB_PORT,
 };
 
 const dialectConfig = {
   dialect: 'postgres',
   dialectOptions: {
-    ssl: true
-  }
+    ssl: true,
+  },
 };
 module.exports = {
   development: {
     ...dbCredentials,
-    ...dialectConfig
+    ...dialectConfig,
   },
   test: {
     ...dbCredentials,
-    ...dialectConfig
+    ...dialectConfig,
   },
   production: {
     ...dbCredentials,
-    ...dialectConfig
-  }
+    ...dialectConfig,
+  },
 };
