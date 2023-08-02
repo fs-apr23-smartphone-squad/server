@@ -25,8 +25,6 @@ app.use(express.static('public'));
 app.get('/products', express.json(), async (req, res) => {
   const { ids } = req.query;
 
-  console.log(ids);
-
   if (typeof ids === 'string') {
     const idsArray = ids.split(',');
 
