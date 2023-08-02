@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
 import { initDB } from './initDB';
+import { Product } from './models/Product.model';
 
 const PORT = 5000;
 
@@ -21,18 +22,37 @@ console.log(res);
 
 app.use(express.static('public'));
 
-app.get('/products', (req, res) => {
-  const filePath = path.resolve('api', 'phones.json');
+app.get('/products', express.json(), async (req, res) => {
+  const { ids } = req.query;
 
-  res.sendFile(filePath);
-});
+  console.log(ids);
 
-app.get('/products/:phoneId', (req, res) => {
-  const { phoneId } = req.params;
+  if (typeof ids === 'string') {
+    const idsArray = ids.split(',');
 
-  const filePath = path.resolve('api', 'phones', `${phoneId}.json`);
+    try {
+      const products = await Product.findAll({
+        where: {
+          id: idsArray
+        }
+      });
 
-  res.sendFile(filePath);
+      return res.json(products);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  } else {
+    try {
+      const products = await Product.findAll({ raw: true });
+
+      return res.json(products);
+    } catch (error) {
+      console.error('Error connecting to the database:', error);
+
+      return res.status(500);
+    }
+  }
 });
 
 app.listen(PORT, () => {
