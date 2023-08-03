@@ -1,5 +1,5 @@
 [
-  {    
+  {
     "category": "phones",
     "phoneId": "apple-iphone-7-32gb-black",
     "itemId": "apple-iphone-7-32gb-black",
@@ -13,7 +13,7 @@
     "year": 2016,
     "image": "img/phones/apple-iphone-7/black/00.jpg"
   },
-  {    
+  {
     "category": "phones",
     "phoneId": "apple-iphone-7-plus-32gb-black",
     "itemId": "apple-iphone-7-plus-32gb-black",
@@ -27,7 +27,7 @@
     "year": 2016,
     "image": "img/phones/apple-iphone-7-plus/black/00.jpg"
   },
-  {    
+  {
     "category": "phones",
     "phoneId": "apple-iphone-8-64gb-gold",
     "itemId": "apple-iphone-8-64gb-gold",
@@ -41,7 +41,7 @@
     "year": 2017,
     "image": "img/phones/apple-iphone-8/gold/00.jpg"
   },
-  {    
+  {
     "category": "phones",
     "phoneId": "apple-iphone-11-64gb-black",
     "itemId": "apple-iphone-11-64gb-black",
@@ -55,7 +55,7 @@
     "year": 2019,
     "image": "img/phones/apple-iphone-11/black/00.jpg"
   },
-  {    
+  {
     "category": "phones",
     "phoneId": "apple-iphone-11-128gb-yellow",
     "itemId": "apple-iphone-11-128gb-yellow",
@@ -69,7 +69,7 @@
     "year": 2019,
     "image": "img/phones/apple-iphone-11/yellow/00.jpg"
   },
-  {    
+  {
     "category": "phones",
     "phoneId": "apple-iphone-11-256gb-green",
     "itemId": "apple-iphone-11-256gb-green",
@@ -83,7 +83,7 @@
     "year": 2019,
     "image": "img/phones/apple-iphone-11/green/00.jpg"
   },
-  {    
+  {
     "category": "phones",
     "phoneId": "apple-iphone-11-pro-64gb-gold",
     "itemId": "apple-iphone-11-pro-64gb-gold",
@@ -97,7 +97,7 @@
     "year": 2019,
     "image": "img/phones/apple-iphone-11-pro/gold/00.jpg"
   },
-  {    
+  {
     "category": "phones",
     "phoneId": "apple-iphone-11-pro-256gb-midnightgreen",
     "itemId": "apple-iphone-11-pro-256gb-midnightgreen",

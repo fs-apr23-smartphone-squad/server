@@ -3,7 +3,10 @@ import { Product } from '../models/Product.model';
 
 const sortByOptions = ['year', 'price'];
 
-export const getProducts = async (req: Request, res: Response): Promise<void> => {
+export const getProducts = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const {
     ids,
     limit = 64,
@@ -46,6 +49,48 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
     }
 
     res.json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const getNewest = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const products = await Product.findAll({
+      order: [['year' as string, 'DESC' as string]],
+      limit: Number(20)
+    });
+
+    res.json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const getBestDiscounts = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const products = await Product.findAll();
+    const tenBestDiscountsIds = products
+      .map((product) => ({
+        discount: product.fullPrice - product.price,
+        id: product.id
+      }))
+      .sort((a, b) => b.discount - a.discount)
+      .slice(0, 20)
+      .map((item) => item.id);
+
+    const bestProducts = await Product.findAll({
+      where: {
+        id: tenBestDiscountsIds
+      }
+    });
+
+    res.json(bestProducts);
   } catch (error) {
     console.error('Error fetching products:', error);
     res.status(500).json({ error: 'Internal server error' });
