@@ -8,10 +8,21 @@ const validSortOrderOptions = ['ASC', 'DESC'];
 
 export const getProductList = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { limit, offset, sortBy, sortOrder } = req.query;
+    const { ids, limit, offset, sortBy, sortOrder } = req.query;
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasQueries = sortBy && sortOrder;
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (ids) {
+      const products = typeof ids === 'string'
+        ? await Product.findAll({ where: { id: ids.split(',') } })
+        : await Product.findAll({ raw: true });
+
+      res.json(products);
+
+      return;
+    }
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!hasQueries) {
@@ -39,6 +50,21 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+// export const getProductsByIds = async (req: Request, res: Response): Promise<void> => {
+//   try {
+//     const { ids } = req.query;
+//     const products = await Product.findAll();
+//     const products = typeof ids === 'string'
+//       ? await Product.findAll({ where: { id: ids.split(',') } })
+//       : await Product.findAll({ raw: true });
+
+//     res.json(products);
+//   } catch (error) {
+//     console.error('Error fetching products:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// };
 
 export const getNewProducts = async (req: Request, res: Response): Promise<void> => {
   try {
