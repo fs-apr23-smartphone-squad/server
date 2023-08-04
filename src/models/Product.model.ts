@@ -7,8 +7,7 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 })
 export class Product extends Model {
   @Column({
-    type: DataType.STRING,
-    primaryKey: true
+    type: DataType.STRING
   })
     id: string;
 
@@ -18,7 +17,8 @@ export class Product extends Model {
     category: string;
 
   @Column({
-    type: DataType.STRING
+    type: DataType.STRING,
+    primaryKey: true
   })
     phoneId: string;
 
