@@ -13,31 +13,29 @@
 
 ## Endpoints
 
-- GET /products
-  * <mark>**ids**</mark>:
-  A comma-separated string representing the IDs of the products to fetch. If provided, only products with matching IDs will be returned.
-    * _example_: https://api.smartphonesquad.shop/products<mark>?ids=2,4,6,70</mark>
+### GET /products
+     This endpoint retrieves the list of all products.
+     
+     http://api.smartphonesquad.shop/products
 
-  * <mark>**limit**</mark>:
-  A number representing the maximum number of products to return. The default value is 64 if not provided.
-    * _example_: https://api.smartphonesquad.shop/products<mark>?limit=10</mark>
+### GET /products/new
+    This endpoint retrieves the list of new products sorted by the year in descending order.
+    
+    http://api.smartphonesquad.shop/products/new
 
-  * <mark>**offset**</mark>:
-  A number representing the offset from where to start fetching products. The default value is 0 if not provided.
-    * _example_: https://api.smartphonesquad.shop/products<mark>?offset=20</mark>
+### GET /products/discount
+    This endpoint retrieves the list of products sorted by the discount value (the difference between fullPrice and price) in descending order.
+    
+    http://api.smartphonesquad.shop/products/discount
 
-  * <mark>**sortBy**</mark>:
-  A string representing the field by which the products should be sorted. The available options are 'year' and 'price'. The default value is 'year' if not provided.
-    * _example_: https://api.smartphonesquad.shop/products<mark>?sortBy=year</mark>
-    * _example_: https://api.smartphonesquad.shop/products<mark>?sortBy=price</mark>
+### GET /products/:phoneId
+    This endpoint retrieves detailed information about a specific product with the given phoneId.
+    (Here, "apple-iphone-7-32gb-black" is the phoneId of the product to retrieve)
+    
+    http://api.smartphonesquad.shop/products/apple-iphone-7-32gb-black 
 
-  * <mark>**sortOrder**</mark>:
-  A string representing the order in which the products should be sorted. The available options are 'ASC' (ascending) and 'DESC' (descending). The default value is 'ASC' if not provided.
-    * _example_: https://api.smartphonesquad.shop/products<mark>?sortBy=year&sortOrder=ASC</mark>
-    * _example_: https://api.smartphonesquad.shop/products<mark>?sortBy=price&sortOrder=DESC</mark>
+### GET /products/:phoneId/recommended
+    This endpoint retrieves a list of recommended products related to the product with the given phoneId. Recommended products are those with prices within $200 difference (higher or lower) from the specified product's price.
+    (Here, "apple-iphone-7-32gb-black" is the phoneId of the product for which you want to get recommended products)
 
-  * other possible <mark>**sorting combinations**</mark> using <mark>**&**</mark>:
-
-    * /products?limit=6&offset=2&sortBy=year&sortOrder=DESC
-    * /products?ids=10,34,55,65&limit=6&offset=0&sortBy=year&sortOrder=DESC
-    * /products?limit=10&offset=0&sortBy=price&sortOrder=ASC
+    http://api.smartphonesquad.shop/products/apple-iphone-7-32gb-black/recommended
