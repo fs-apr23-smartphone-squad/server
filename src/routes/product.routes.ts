@@ -1,13 +1,17 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express from 'express';
 import {
-  getBestDiscounts,
-  getNewest,
-  getProducts
+  getProductList,
+  getNewProducts,
+  getDiscountedProducts,
+  getSingleProduct,
+  getRecommendedProducts
 } from '../controllers/product.controller';
 
 export const productRoutes = express.Router();
 
-productRoutes.get('/', express.json(), getProducts);
-productRoutes.get('/new', express.json(), getNewest);
-productRoutes.get('/discount', express.json(), getBestDiscounts);
+productRoutes.get('/products', express.json(), getProductList);
+productRoutes.get('/products/new', express.json(), getNewProducts);
+productRoutes.get('/products/discount', express.json(), getDiscountedProducts);
+productRoutes.get('/products/:phoneId', express.json(), getSingleProduct);
+productRoutes.get('/products/:phoneId/recommended', express.json(), getRecommendedProducts);
