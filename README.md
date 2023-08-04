@@ -24,9 +24,15 @@
     http://api.smartphonesquad.shop/products/new
 
 ### GET /products/discount
-    This endpoint retrieves the list of products sorted by the discount value (the difference between fullPrice and price) in descending order.
+    This endpoint retrieves the list of products sorted by the discount value (the difference between fullPrice and price) in descending order
     
     http://api.smartphonesquad.shop/products/discount
+
+### GET /products?productType=tablets
+    This endpoint retrieves the list of products sorted by the discount value (the difference between fullPrice and price) in descending order.
+    validaproductTypeOptions = ['phones', 'tablets', 'accessories'];
+
+    http://api.smartphonesquad.shop/products?productType=tablets
 
 ### GET /products/:phoneId
     This endpoint retrieves detailed information about a specific product with the given phoneId.
