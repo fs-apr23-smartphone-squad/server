@@ -32,6 +32,4 @@
     This endpoint retrieves detailed information about a specific product with the given phoneId.
     (Here, "apple-iphone-7-32gb-black" is the phoneId of the product to retrieve)
     
-    http://api.smartphonesquad.shop/products/apple-iphone-7-32gb-black 
-
- 
+    http://api.smartphonesquad.shop/products/apple-iphone-7-32gb-black
