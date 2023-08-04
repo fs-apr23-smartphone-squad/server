@@ -5,13 +5,51 @@ import { ProductService } from '../services/products.service';
 
 const validSortByOptions = ['year', 'price'];
 const validSortOrderOptions = ['ASC', 'DESC'];
+const validaproductTypeOptions = ['phones', 'tablets', 'accessories'];
 
 export const getProductList = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { ids, limit, offset, sortBy, sortOrder } = req.query;
+    const {
+      ids,
+      limit,
+      offset,
+      sortBy,
+      sortOrder,
+      productType
+    } = req.query;
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasQueries = sortBy && sortOrder;
+
+    // If there are queries, apply sorting
+    if (productType !== undefined) {
+      if (!validaproductTypeOptions.includes(productType as string)) {
+        res.status(400).json({ error: 'Invalid productType option' });
+        return;
+      }
+      const products = await Product.findAll();
+      let category: Product[] | undefined = [];
+
+      if (productType === 'phones') {
+        category = products.filter(product => product.category === 'phones');
+      }
+
+      if (productType === 'tablets') {
+        category = products.filter(product => product.category === 'tablets');
+      }
+
+      if (productType === 'accessories') {
+        category = products.filter(product => product.category === 'accessories');
+      }
+
+      if (category.length === 0) {
+        res.json('There are no products in this category yet');
+        return;
+      }
+
+      res.json(category);
+      return;
+    }
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (ids) {
@@ -50,21 +88,6 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-
-// export const getProductsByIds = async (req: Request, res: Response): Promise<void> => {
-//   try {
-//     const { ids } = req.query;
-//     const products = await Product.findAll();
-//     const products = typeof ids === 'string'
-//       ? await Product.findAll({ where: { id: ids.split(',') } })
-//       : await Product.findAll({ raw: true });
-
-//     res.json(products);
-//   } catch (error) {
-//     console.error('Error fetching products:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// };
 
 export const getNewProducts = async (req: Request, res: Response): Promise<void> => {
   try {
