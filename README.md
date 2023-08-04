@@ -36,7 +36,7 @@
 
 ### GET /products/:phoneId/recommended
 
-    Description: This endpoint retrieves a list of recommended products related to the product with the given phoneId. Recommended products are those with prices within $200 difference (higher or lower) from the specified product's price.
+    This endpoint retrieves a list of recommended products related to the product with the given phoneId. Recommended products are those with prices within $200 difference (higher or lower) from the specified product's price.
     (Here, "apple-iphone-7-32gb-black" is the phoneId of the product for which you want to get recommended products)
     
     http://api.smartphonesquad.shop/products/apple-iphone-7-32gb-black/recommended 
