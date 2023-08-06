@@ -1,25 +1,21 @@
 'use strict';
 
-const TABLE_NAME = 'Products';
+const TABLE_NAME = 'accessories';
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up (queryInterface, Sequelize) {
     await queryInterface.createTable(TABLE_NAME, {
       id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false,
-      },
-      category: {
         type: Sequelize.STRING,
         allowNull: false,
+        references: {
+          model: 'products',
+          key: 'itemId',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
-      phoneId: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      itemId: {
+      namespaceId: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -27,15 +23,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      fullPrice: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      price: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      screen: {
+      capacityAvailable: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -43,7 +31,39 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      priceRegular: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      priceDiscount: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      colorsAvailable: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       color: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      images: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: Sequelize.JSONB,
+        allowNull: false,
+      },
+      screen: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      resolution: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      processor: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -51,18 +71,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      year: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      image: {
+      cell: {
         type: Sequelize.STRING,
         allowNull: false,
       },
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  async down (queryInterface, Sequelize) {
     await queryInterface.dropTable(TABLE_NAME);
-  },
+  }
 };

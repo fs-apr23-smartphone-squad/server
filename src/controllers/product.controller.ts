@@ -1,7 +1,7 @@
 // product.controller.ts
 import type { Request, Response } from 'express';
-import { Product } from '../models/Product.model';
 import { ProductService } from '../services/products.service';
+import { Product } from '../models/product.model';
 
 const validSortByOptions = ['year', 'price'];
 const validSortOrderOptions = ['ASC', 'DESC'];
@@ -21,7 +21,6 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasQueries = sortBy && sortOrder;
 
-    // If there are queries, apply sorting
     if (productType !== undefined) {
       if (!validaproductTypeOptions.includes(productType as string)) {
         res.status(400).json({ error: 'Invalid productType option' });
@@ -43,7 +42,7 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
       }
 
       if (category.length === 0) {
-        res.json('There are no products in this category yet');
+        res.json([]);
         return;
       }
 
@@ -120,10 +119,10 @@ export const getDiscountedProducts = async (req: Request, res: Response): Promis
 export const getSingleProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const productService = new ProductService();
-    const { phoneId } = req.params;
+    const { itemId } = req.params;
     const products = await Product.findAll();
 
-    const phone = productService.findById(phoneId, products);
+    const phone = productService.findById(itemId, products);
 
     res.json(phone);
   } catch (error) {
@@ -135,10 +134,10 @@ export const getSingleProduct = async (req: Request, res: Response): Promise<voi
 export const getRecommendedProducts = async (req: Request, res: Response): Promise<void> => {
   try {
     const productService = new ProductService();
-    const { phoneId } = req.params;
+    const { itemId } = req.params;
     const products = await Product.findAll();
 
-    const phone = productService.findById(phoneId, products);
+    const phone = productService.findById(itemId, products);
 
     if (phone === undefined) {
       res.status(404).json({ error: 'Phone not found' });
