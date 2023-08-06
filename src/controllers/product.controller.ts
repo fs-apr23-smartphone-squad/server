@@ -2,7 +2,7 @@
 // @ts-nocheck
 
 import type { Request, Response } from 'express';
-import { Product } from '../models/product.model';
+import { Product } from '../models/Product.model';
 import { ProductService } from '../services/products.service';
 
 const validSortByOptions = ['year', 'price'];
