@@ -2,12 +2,12 @@
 // @ts-nocheck
 
 import type { Request, Response } from 'express';
-import { ProductService } from '../services/products.service';
 import { Product } from '../models/product.model';
+import { ProductService } from '../services/products.service';
 
 const validSortByOptions = ['year', 'price'];
 const validSortOrderOptions = ['ASC', 'DESC'];
-const validaproductTypeOptions = ['phones', 'tablets', 'accessories'];
+const validProductTypeOptions = ['phones', 'tablets', 'accessories'];
 
 export const getProductList = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -24,7 +24,7 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
     const hasQueries = sortBy && sortOrder;
 
     if (productType !== undefined) {
-      if (!validaproductTypeOptions.includes(productType as string)) {
+      if (!validProductTypeOptions.includes(productType as string)) {
         res.status(400).json({ error: 'Invalid productType option' });
         return;
       }
