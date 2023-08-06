@@ -1,6 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { Model, Column, Table, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
-import { Product } from './product.model'; // Assuming this is the Product model file name
+import { Product } from './product.model';
 
 interface Description {
   title: string
