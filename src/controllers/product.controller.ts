@@ -1,17 +1,65 @@
 // product.controller.ts
 import type { Request, Response } from 'express';
-import { Product } from '../models/Product.model';
+import { Product } from '../models/product.model';
 import { ProductService } from '../services/products.service';
 
 const validSortByOptions = ['year', 'price'];
 const validSortOrderOptions = ['ASC', 'DESC'];
+const validProductTypeOptions = ['phones', 'tablets', 'accessories'];
 
 export const getProductList = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { limit, offset, sortBy, sortOrder } = req.query;
+    const {
+      ids,
+      limit,
+      offset,
+      sortBy,
+      sortOrder,
+      productType
+    } = req.query;
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasQueries = sortBy && sortOrder;
+
+    if (productType !== undefined) {
+      if (!validProductTypeOptions.includes(productType as string)) {
+        res.status(400).json({ error: 'Invalid productType option' });
+        return;
+      }
+      const products = await Product.findAll();
+      let category: Product[] | undefined = [];
+
+      if (productType === 'phones') {
+        category = products.filter(product => product.category === 'phones');
+      }
+
+      if (productType === 'tablets') {
+        category = products.filter(product => product.category === 'tablets');
+      }
+
+      if (productType === 'accessories') {
+        category = products.filter(product => product.category === 'accessories');
+      }
+
+      if (category.length === 0) {
+        res.json([]);
+        return;
+      }
+
+      res.json(category);
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (ids) {
+      const products = typeof ids === 'string'
+        ? await Product.findAll({ where: { id: ids.split(',') } })
+        : await Product.findAll({ raw: true });
+
+      res.json(products);
+
+      return;
+    }
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!hasQueries) {
@@ -71,10 +119,10 @@ export const getDiscountedProducts = async (req: Request, res: Response): Promis
 export const getSingleProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const productService = new ProductService();
-    const { phoneId } = req.params;
+    const { itemId } = req.params;
     const products = await Product.findAll();
 
-    const phone = productService.findById(phoneId, products);
+    const phone = productService.findById(itemId, products);
 
     res.json(phone);
   } catch (error) {
@@ -86,10 +134,10 @@ export const getSingleProduct = async (req: Request, res: Response): Promise<voi
 export const getRecommendedProducts = async (req: Request, res: Response): Promise<void> => {
   try {
     const productService = new ProductService();
-    const { phoneId } = req.params;
+    const { itemId } = req.params;
     const products = await Product.findAll();
 
-    const phone = productService.findById(phoneId, products);
+    const phone = productService.findById(itemId, products);
 
     if (phone === undefined) {
       res.status(404).json({ error: 'Phone not found' });

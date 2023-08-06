@@ -13,5 +13,5 @@ export const productRoutes = express.Router();
 productRoutes.get('/products', express.json(), getProductList);
 productRoutes.get('/products/new', express.json(), getNewProducts);
 productRoutes.get('/products/discount', express.json(), getDiscountedProducts);
-productRoutes.get('/products/:phoneId', express.json(), getSingleProduct);
-productRoutes.get('/products/:phoneId/recommended', express.json(), getRecommendedProducts);
+productRoutes.get('/products/:itemId', express.json(), getSingleProduct);
+productRoutes.get('/products/:itemId/recommended', express.json(), getRecommendedProducts);

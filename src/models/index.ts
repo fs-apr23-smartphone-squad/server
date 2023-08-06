@@ -1,3 +1,3 @@
-import { Product } from './Product.model';
+import { Product } from './product.model';
 
 export const models = [Product];
