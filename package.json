@@ -6,7 +6,7 @@
   "scripts": {
     "run-seeds": "npx sequelize db:seed:all",
     "run-mg": "npx sequelize db:migrate",
-    "run-sd-mg": "npm run run-mg && npm run run-seeds",
+    "run-sd-mg": "npm run run-mg",
     "dev": "npm run run-sd-mg && nodemon src/server.ts",
     "format": "prettier --write . --ignore-path .gitignore",
     "lint": "eslint \"**/*.{ts}\" --ignore-path .gitignore --no-error-on-unmatched-pattern",
