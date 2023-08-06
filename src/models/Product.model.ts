@@ -1,74 +1,75 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { AllowNull, Model, Column, Table } from 'sequelize-typescript';
+import { DataTypes } from 'sequelize';
 
 @Table({
-  tableName: 'Products',
+  tableName: 'products',
   createdAt: false,
   updatedAt: false
 })
 export class Product extends Model {
+  @AllowNull(false)
   @Column({
-    type: DataType.STRING
-  })
-    id: string;
-
-  @Column({
-    type: DataType.STRING
+    type: DataTypes.STRING
   })
     category: string;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.STRING,
-    primaryKey: true
-  })
-    phoneId: string;
-
-  @Column({
-    type: DataType.STRING
+    type: DataTypes.STRING
   })
     itemId: string;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.STRING
+    type: DataTypes.STRING
   })
     name: string;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.INTEGER
+    type: DataTypes.INTEGER
   })
     fullPrice: number;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.INTEGER
+    type: DataTypes.INTEGER
   })
     price: number;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.STRING
+    type: DataTypes.STRING
   })
     screen: string;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.STRING
+    type: DataTypes.STRING
   })
     capacity: string;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.STRING
+    type: DataTypes.STRING
   })
     color: string;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.STRING
+    type: DataTypes.STRING
   })
     ram: string;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.INTEGER
+    type: DataTypes.INTEGER
   })
     year: number;
 
+  @AllowNull(false)
   @Column({
-    type: DataType.STRING
+    type: DataTypes.STRING
   })
     image: string;
 }
