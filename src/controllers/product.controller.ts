@@ -120,10 +120,10 @@ export const getDiscountedProducts = async (req: Request, res: Response): Promis
 export const getSingleProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const productService = new ProductService();
-    const { phoneId } = req.params;
+    const { itemId } = req.params;
     const products = await Product.findAll();
 
-    const phone = productService.findById(phoneId, products);
+    const phone = productService.findById(itemId, products);
 
     res.json(phone);
   } catch (error) {
@@ -135,10 +135,10 @@ export const getSingleProduct = async (req: Request, res: Response): Promise<voi
 export const getRecommendedProducts = async (req: Request, res: Response): Promise<void> => {
   try {
     const productService = new ProductService();
-    const { phoneId } = req.params;
+    const { itemId } = req.params;
     const products = await Product.findAll();
 
-    const phone = productService.findById(phoneId, products);
+    const phone = productService.findById(itemId, products);
 
     if (phone === undefined) {
       res.status(404).json({ error: 'Phone not found' });
