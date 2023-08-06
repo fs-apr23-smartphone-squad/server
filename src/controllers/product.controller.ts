@@ -2,6 +2,7 @@
 // @ts-nocheck
 
 import type { Request, Response } from 'express';
+import { Product } from '../models/product.model';
 import { ProductService } from '../services/products.service';
 import { Product } from '../models/product.model';
 
@@ -122,8 +123,10 @@ export const getSingleProduct = async (req: Request, res: Response): Promise<voi
   try {
     const productService = new ProductService();
     const { itemId } = req.params;
+    const { itemId } = req.params;
     const products = await Product.findAll();
 
+    const phone = productService.findById(itemId, products);
     const phone = productService.findById(itemId, products);
 
     res.json(phone);
@@ -137,8 +140,10 @@ export const getRecommendedProducts = async (req: Request, res: Response): Promi
   try {
     const productService = new ProductService();
     const { itemId } = req.params;
+    const { itemId } = req.params;
     const products = await Product.findAll();
 
+    const phone = productService.findById(itemId, products);
     const phone = productService.findById(itemId, products);
 
     if (phone === undefined) {
