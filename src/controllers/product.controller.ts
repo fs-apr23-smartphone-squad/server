@@ -1,24 +1,17 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import type { Request, Response } from 'express';
-import { Product } from '../models/Product.model';
-import { ProductService } from '../services/products.service';
+import { Product } from '../models/product.model';
 
 const validSortByOptions = ['year', 'price'];
 const validSortOrderOptions = ['ASC', 'DESC'];
 const validProductTypeOptions = ['phones', 'tablets', 'accessories'];
 
-export const getProductList = async (req: Request, res: Response): Promise<void> => {
+export const getProductList = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
-    const {
-      ids,
-      limit,
-      offset,
-      sortBy,
-      sortOrder,
-      productType
-    } = req.query;
+    const { ids, limit, offset, sortBy, sortOrder, productType, group } =
+      req.query;
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasQueries = sortBy && sortOrder;
@@ -32,15 +25,17 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
       let category: Product[] | undefined = [];
 
       if (productType === 'phones') {
-        category = products.filter(product => product.category === 'phones');
+        category = products.filter((product) => product.category === 'phones');
       }
 
       if (productType === 'tablets') {
-        category = products.filter(product => product.category === 'tablets');
+        category = products.filter((product) => product.category === 'tablets');
       }
 
       if (productType === 'accessories') {
-        category = products.filter(product => product.category === 'accessories');
+        category = products.filter(
+          (product) => product.category === 'accessories'
+        );
       }
 
       if (category.length === 0) {
@@ -54,9 +49,10 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (ids) {
-      const products = typeof ids === 'string'
-        ? await Product.findAll({ where: { id: ids.split(',') } })
-        : await Product.findAll({ raw: true });
+      const products =
+        typeof ids === 'string'
+          ? await Product.findAll({ where: { id: ids.split(',') } })
+          : await Product.findAll({ raw: true });
 
       res.json(products);
 
@@ -71,17 +67,25 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
     }
 
     // If there are queries, apply sorting
-    if (!validSortByOptions.includes(sortBy as string) || !validSortOrderOptions.includes(sortOrder as string)) {
+    if (
+      !validSortByOptions.includes(sortBy as string) ||
+      !validSortOrderOptions.includes(sortOrder as string)
+    ) {
       res.status(400).json({ error: 'Invalid sortBy or sortOrder option' });
       return;
     }
 
     const products = await Product.findAndCountAll({
       raw: true,
+      where: {
+        category: group
+      },
       order: [[sortBy as string, sortOrder as string]],
       limit: Number(limit),
       offset: Number(offset)
     });
+
+    // const category = products.rows.filter(product => product.category === group);
 
     res.json(products);
   } catch (error) {
@@ -90,12 +94,13 @@ export const getProductList = async (req: Request, res: Response): Promise<void>
   }
 };
 
-export const getNewProducts = async (req: Request, res: Response): Promise<void> => {
+export const getNewProducts = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const products = await Product.findAll();
-    const newProducts = products
-      .sort((a, b) => b.year - a.year)
-      .slice(0, 20);
+    const newProducts = products.sort((a, b) => b.year - a.year).slice(0, 20);
 
     res.json(newProducts);
   } catch (error) {
@@ -104,11 +109,14 @@ export const getNewProducts = async (req: Request, res: Response): Promise<void>
   }
 };
 
-export const getDiscountedProducts = async (req: Request, res: Response): Promise<void> => {
+export const getDiscountedProducts = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
     const products = await Product.findAll();
     const discountedPhones = products
-      .sort((a, b) => (b.fullPrice - b.price) - (a.fullPrice - a.price))
+      .sort((a, b) => b.fullPrice - b.price - (a.fullPrice - a.price))
       .slice(0, 20);
 
     res.json(discountedPhones);
@@ -118,42 +126,97 @@ export const getDiscountedProducts = async (req: Request, res: Response): Promis
   }
 };
 
-export const getSingleProduct = async (req: Request, res: Response): Promise<void> => {
+export const getRecommendedPhones = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   try {
-    const productService = new ProductService();
-    const { itemId } = req.params;
-    const products = await Product.findAll();
+    const { id } = req.params;
+    const phones = await Product.findAll({
+      where: {
+        category: 'phones'
+      }
+    });
 
-    const phone = productService.findById(itemId, products);
-
-    res.json(phone);
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-export const getRecommendedProducts = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const productService = new ProductService();
-    const { itemId } = req.params;
-    const products = await Product.findAll();
-
-    const phone = productService.findById(itemId, products);
+    const phone = phones.find((phone) => phone.itemId === id);
 
     if (phone === undefined) {
       res.status(404).json({ error: 'Phone not found' });
       return;
     }
 
-    const recommendedProducts = products
-      .filter(product => {
+    const recommendedPhones = phones
+      .filter((product) => {
         const priceDifference = Math.abs(product.price - phone.price);
         return priceDifference <= 200 && priceDifference !== 0;
       })
       .slice(0, 8);
 
-    res.json(recommendedProducts);
+    res.json(recommendedPhones);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+};
+
+export const getRecommendedTablets = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const tablets = await Product.findAll({
+      where: {
+        category: 'tablets'
+      }
+    });
+
+    const tablet = tablets.find((tablet) => tablet.itemId === id);
+
+    if (tablet === undefined) {
+      res.status(404).json({ error: 'Tablet not found' });
+      return;
+    }
+
+    const recommendedTablets = tablets
+      .filter((product) => {
+        const priceDifference = Math.abs(product.price - tablet.price);
+        return priceDifference <= 200 && priceDifference !== 0;
+      })
+      .slice(0, 8);
+
+    res.json(recommendedTablets);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  }
+};
+
+export const getRecommendedAccessories = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const accessories = await Product.findAll({
+      where: {
+        category: 'accessories'
+      }
+    });
+
+    const accessory = accessories.find((accessory) => accessory.itemId === id);
+
+    if (accessory === undefined) {
+      res.status(404).json({ error: 'Phone not found' });
+      return;
+    }
+
+    const recommendedAccessories = accessories
+      .filter((product) => {
+        const priceDifference = Math.abs(product.price - accessory.price);
+        return priceDifference <= 200 && priceDifference !== 0;
+      })
+      .slice(0, 8);
+
+    res.json(recommendedAccessories);
   } catch (error) {
     console.error('Error fetching products:', error);
   }

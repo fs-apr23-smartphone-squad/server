@@ -4,73 +4,73 @@ import { DataTypes } from 'sequelize';
 @Table({
   tableName: 'products',
   createdAt: false,
-  updatedAt: false
+  updatedAt: false,
 })
 export class Product extends Model {
   @AllowNull(false)
   @Column({
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   })
-    category: string;
+  category: string;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   })
-    itemId: string;
+  itemId: string;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   })
-    name: string;
+  name: string;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   })
-    fullPrice: number;
+  fullPrice: number;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   })
-    price: number;
+  price: number;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   })
-    screen: string;
+  screen: string;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   })
-    capacity: string;
+  capacity: string;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   })
-    color: string;
+  color: string;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   })
-    ram: string;
+  ram: string;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   })
-    year: number;
+  year: number;
 
   @AllowNull(false)
   @Column({
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   })
-    image: string;
+  image: string;
 }
 
