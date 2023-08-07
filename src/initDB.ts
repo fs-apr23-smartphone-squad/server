@@ -14,6 +14,7 @@ export const initDB = (): Sequelize => {
 
   return new Sequelize(DB_URI, {
     models,
+    logging: false,
     dialectOptions: {
       ssl: true,
     },

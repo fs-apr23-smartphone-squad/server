@@ -11,7 +11,14 @@ const PORT = 5000;
 const app = express();
 app.use(cors());
 
-initDB();
+// Sequelize starts
+
+const sequelize = initDB();
+const res = sequelize.authenticate();
+
+console.log(res);
+
+// Sequelize ends
 
 app.use(express.static('public'));
 
