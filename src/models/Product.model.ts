@@ -4,7 +4,7 @@ import { DataTypes } from 'sequelize';
 @Table({
   tableName: 'products',
   createdAt: false,
-  updatedAt: false,
+  updatedAt: false
 })
 export class Product extends Model {
   @AllowNull(false)
