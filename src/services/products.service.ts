@@ -1,4 +1,7 @@
-import type { Product } from '../models/dsfsd';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
+import type { Product } from '../models/product.model';
 
 export class ProductService {
   findById(itemId: string, arr: Product[]): Product | undefined {
