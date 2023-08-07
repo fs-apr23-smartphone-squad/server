@@ -3,7 +3,7 @@
 
 import type { Request, Response } from 'express';
 import type { ProductType } from '../types';
-import { Product } from '../models/product.model';
+import { Product } from '../models/product.model.ts';
 
 const validSortByOptions = ['year', 'price'];
 const validSortOrderOptions = ['ASC', 'DESC'];
