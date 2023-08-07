@@ -7,7 +7,7 @@ const validProductTypeOptions = ['phones', 'tablets', 'accessories'];
 
 export const getProductList = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { ids, limit, offset, sortBy, sortOrder, productType, group } =
@@ -34,7 +34,7 @@ export const getProductList = async (
 
       if (productType === 'accessories') {
         category = products.filter(
-          (product) => product.category === 'accessories'
+          (product) => product.category === 'accessories',
         );
       }
 
@@ -78,11 +78,11 @@ export const getProductList = async (
     const products = await Product.findAndCountAll({
       raw: true,
       where: {
-        category: group
+        category: group,
       },
       order: [[sortBy as string, sortOrder as string]],
       limit: Number(limit),
-      offset: Number(offset)
+      offset: Number(offset),
     });
 
     // const category = products.rows.filter(product => product.category === group);
@@ -96,7 +96,7 @@ export const getProductList = async (
 
 export const getNewProducts = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const products = await Product.findAll();
@@ -111,7 +111,7 @@ export const getNewProducts = async (
 
 export const getDiscountedProducts = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const products = await Product.findAll();
@@ -128,14 +128,14 @@ export const getDiscountedProducts = async (
 
 export const getRecommendedPhones = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { id } = req.params;
     const phones = await Product.findAll({
       where: {
-        category: 'phones'
-      }
+        category: 'phones',
+      },
     });
 
     const phone = phones.find((phone) => phone.itemId === id);
@@ -160,14 +160,14 @@ export const getRecommendedPhones = async (
 
 export const getRecommendedTablets = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { id } = req.params;
     const tablets = await Product.findAll({
       where: {
-        category: 'tablets'
-      }
+        category: 'tablets',
+      },
     });
 
     const tablet = tablets.find((tablet) => tablet.itemId === id);
@@ -192,14 +192,14 @@ export const getRecommendedTablets = async (
 
 export const getRecommendedAccessories = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { id } = req.params;
     const accessories = await Product.findAll({
       where: {
-        category: 'accessories'
-      }
+        category: 'accessories',
+      },
     });
 
     const accessory = accessories.find((accessory) => accessory.itemId === id);
