@@ -3,20 +3,20 @@
 const TABLE_NAME = 'products';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable(TABLE_NAME, {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
 
       category: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      
+
       itemId: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -70,7 +70,7 @@ module.exports = {
     });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable(TABLE_NAME);
-  }
+  },
 };

@@ -15,7 +15,7 @@ export const initDB = (): Sequelize => {
   return new Sequelize(DB_URI, {
     models,
     dialectOptions: {
-      ssl: true
-    }
+      ssl: true,
+    },
   });
 };

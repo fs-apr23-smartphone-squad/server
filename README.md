@@ -14,35 +14,61 @@
 ## Endpoints
 
 ### GET /products
-     This endpoint retrieves the list of all products.
-     
-     http://api.smartphonesquad.shop/products
+
+This endpoint retrieves a list of products based on optional query parameters. It allows filtering, sorting, and paginating the products based on criteria such as limit, offset, sortBy, sortOrder, and group.
+
+_https://api.smartphonesquad.shop/products_
 
 ### GET /products/new
-    This endpoint retrieves the list of new products sorted by the year in descending order.
-    
-    http://api.smartphonesquad.shop/products/new
+
+This endpoint retrieves a list of newly added products. It returns a JSON array containing information about each new product, such as name, price, and category.
+
+_https://api.smartphonesquad.shop/products/new_
 
 ### GET /products/discount
-    This endpoint retrieves the list of products sorted by the discount value (the difference between fullPrice and price) in descending order
-    
-    http://api.smartphonesquad.shop/products/discount
 
-### GET /products?productType=tablets
-    This endpoint retrieves the list of products sorted by the discount value (the difference between fullPrice and price) in descending order.
-    validaproductTypeOptions = ['phones', 'tablets', 'accessories'];
+This endpoint retrieves a list of discounted products. It returns a JSON array containing information about each discounted product, such as name, price, and category.
 
-    http://api.smartphonesquad.shop/products?productType=tablets
+_https://api.smartphonesquad.shop/products/discount_
 
-### GET /products/:phoneId
-    This endpoint retrieves detailed information about a specific product with the given phoneId.
-    (Here, "apple-iphone-7-32gb-black" is the phoneId of the product to retrieve)
-    
-    http://api.smartphonesquad.shop/products/apple-iphone-11-128gb-black 
+---
 
-### GET /products/:phoneId/recommended
+### GET /phones/:id
 
-    This endpoint retrieves a list of recommended products related to the product with the given phoneId. Recommended products are those with prices within $200 difference (higher or lower) from the specified product's price.
-    (Here, "apple-iphone-7-32gb-black" is the phoneId of the product for which you want to get recommended products)
-    
-    http://api.smartphonesquad.shop/products/apple-iphone-7-32gb-black/recommended 
+This endpoint retrieves information about a single phone based on the given id parameter, which represents the ID of the phone. It returns a JSON object containing detailed information about the phone.
+
+_https://api.smartphonesquad.shop/phones/apple-iphone-7-plus-32gb-rosegold_
+
+### GET /phones/:id/recommended
+
+This endpoint retrieves a list of recommended phones based on the given id parameter, which represents the ID of a specific phone. It returns a JSON array containing information about each recommended phone, such as name, price, and category.
+
+_https://api.smartphonesquad.shop/phones/apple-iphone-7-plus-32gb-rosegold/recommended_
+
+---
+
+### GET /tablets/:id
+
+This endpoint retrieves information about a single tablet based on the given id parameter, which represents the ID of the tablet. It returns a JSON object containing detailed information about the tablet.
+
+_https://api.smartphonesquad.shop/tablets/apple-ipad-10-2-2020-128gb-silver_
+
+### GET /tablets/:id/recommended
+
+This endpoint retrieves a list of recommended tablets based on the given id parameter, which represents the ID of a specific tablet. It returns a JSON array containing information about each recommended tablet, such as name, price, and category.
+
+_https://api.smartphonesquad.shop/tablets/apple-ipad-10-2-2020-128gb-silver/recommended_
+
+---
+
+### GET /accessories/:id
+
+This endpoint retrieves information about a single accessory based on the given id parameter, which represents the ID of the accessory. It returns a JSON object containing detailed information about the accessory.
+
+_https://api.smartphonesquad.shop/accessories/apple-watch-series-3-38mm-space-gray_
+
+### GET /accessories/:id/recommended
+
+This endpoint retrieves a list of recommended accessories based on the given id parameter, which represents the ID of a specific accessory. It returns a JSON array containing information about each recommended accessory, such as name, price, and category.
+
+_https://api.smartphonesquad.shop/accessories/apple-watch-series-3-38mm-space-gray/recommended_

@@ -18,6 +18,7 @@ const dbCredentials = {
 };
 
 const dialectConfig = {
+  seederStorage: 'sequelize',
   dialect: 'postgres',
   dialectOptions: {
     ssl: true,
