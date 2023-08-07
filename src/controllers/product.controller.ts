@@ -1,4 +1,5 @@
 import type { Request, Response } from 'express';
+import type { ProductType } from '../types';
 import { Product } from '../models/product.model';
 
 const validSortByOptions = ['year', 'price'];
@@ -22,28 +23,28 @@ export const getProductList = async (
         return;
       }
       const products = await Product.findAll();
-      let category: Product[] | undefined = [];
 
       if (productType === 'phones') {
-        category = products.filter((product) => product.category === 'phones');
-      }
+        res.json(products.filter((product: ProductType) => product.category === 'phones'));
 
-      if (productType === 'tablets') {
-        category = products.filter((product) => product.category === 'tablets');
-      }
-
-      if (productType === 'accessories') {
-        category = products.filter(
-          (product) => product.category === 'accessories',
-        );
-      }
-
-      if (category.length === 0) {
-        res.json([]);
         return;
       }
 
-      res.json(category);
+      if (productType === 'tablets') {
+        res.json(products.filter((product: ProductType) => product.category === 'tablets'));
+
+        return;
+      }
+
+      if (productType === 'accessories') {
+        res.json(products.filter(
+          (product: ProductType) => product.category === 'accessories',
+        ));
+
+        return;
+      }
+
+      res.json([]);
       return;
     }
 
@@ -100,7 +101,8 @@ export const getNewProducts = async (
 ): Promise<void> => {
   try {
     const products = await Product.findAll();
-    const newProducts = products.sort((a, b) => b.year - a.year).slice(0, 20);
+    const newProducts = products.sort(
+      (a: ProductType, b: ProductType) => b.year - a.year).slice(0, 20);
 
     res.json(newProducts);
   } catch (error) {
@@ -116,7 +118,7 @@ export const getDiscountedProducts = async (
   try {
     const products = await Product.findAll();
     const discountedPhones = products
-      .sort((a, b) => b.fullPrice - b.price - (a.fullPrice - a.price))
+      .sort((a: ProductType, b: ProductType) => b.fullPrice - b.price - (a.fullPrice - a.price))
       .slice(0, 20);
 
     res.json(discountedPhones);
@@ -138,7 +140,7 @@ export const getRecommendedPhones = async (
       },
     });
 
-    const phone = phones.find((phone) => phone.itemId === id);
+    const phone = phones.find((phone: ProductType) => phone.itemId === id);
 
     if (phone === undefined) {
       res.status(404).json({ error: 'Phone not found' });
@@ -146,7 +148,7 @@ export const getRecommendedPhones = async (
     }
 
     const recommendedPhones = phones
-      .filter((product) => {
+      .filter((product: ProductType) => {
         const priceDifference = Math.abs(product.price - phone.price);
         return priceDifference <= 200 && priceDifference !== 0;
       })
@@ -170,7 +172,7 @@ export const getRecommendedTablets = async (
       },
     });
 
-    const tablet = tablets.find((tablet) => tablet.itemId === id);
+    const tablet = tablets.find((tablet: ProductType) => tablet.itemId === id);
 
     if (tablet === undefined) {
       res.status(404).json({ error: 'Tablet not found' });
@@ -178,7 +180,7 @@ export const getRecommendedTablets = async (
     }
 
     const recommendedTablets = tablets
-      .filter((product) => {
+      .filter((product: ProductType) => {
         const priceDifference = Math.abs(product.price - tablet.price);
         return priceDifference <= 200 && priceDifference !== 0;
       })
@@ -202,7 +204,7 @@ export const getRecommendedAccessories = async (
       },
     });
 
-    const accessory = accessories.find((accessory) => accessory.itemId === id);
+    const accessory = accessories.find((accessory: ProductType) => accessory.itemId === id);
 
     if (accessory === undefined) {
       res.status(404).json({ error: 'Phone not found' });
@@ -210,7 +212,7 @@ export const getRecommendedAccessories = async (
     }
 
     const recommendedAccessories = accessories
-      .filter((product) => {
+      .filter((product: ProductType) => {
         const priceDifference = Math.abs(product.price - accessory.price);
         return priceDifference <= 200 && priceDifference !== 0;
       })
