@@ -1,4 +1,4 @@
-import type { Product } from '../models/product.model';
+import type { Product } from '../models/dsfsd';
 
 export class ProductService {
   findById(itemId: string, arr: Product[]): Product | undefined {
