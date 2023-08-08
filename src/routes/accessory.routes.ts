@@ -4,4 +4,4 @@ import { getSingleAccessory } from '../controllers/accessory.controller';
 
 export const accessoryRoutes = express.Router();
 
-accessoryRoutes.get('/products/:id', express.json(), getSingleAccessory);
+accessoryRoutes.get('/accessories/:id', express.json(), getSingleAccessory);
