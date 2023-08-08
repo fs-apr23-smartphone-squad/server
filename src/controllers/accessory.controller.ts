@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { Accessories } from '../models/accessories.model';
+import { Accessories } from '../models/Accessories/accessories.model';
 
 export const getSingleAccessory = async (
   req: Request,

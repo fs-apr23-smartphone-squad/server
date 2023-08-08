@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { Tablets } from '../models/tablets.model';
+import { Tablets } from '../models/Tablets/tablets.model';
 
 export const getSingleTablet = async (
   req: Request,

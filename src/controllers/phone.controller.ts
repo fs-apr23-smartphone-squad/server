@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { Phone } from '../models/phone.model';
+import { Phone } from '../models/Phone/phone.model';
 
 export const getSinglePhone = async (
   req: Request,

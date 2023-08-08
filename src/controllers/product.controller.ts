@@ -3,7 +3,7 @@
 
 import type { Request, Response } from 'express';
 import type { ProductType } from '../types';
-import { Product } from '../models/product.model.ts';
+import { Product } from '../models/Product/product.model';
 
 const validSortByOptions = ['year', 'price'];
 const validSortOrderOptions = ['ASC', 'DESC'];
@@ -28,21 +28,31 @@ export const getProductList = async (
       const products = await Product.findAll();
 
       if (productType === 'phones') {
-        res.json(products.filter((product: ProductType) => product.category === 'phones'));
+        res.json(
+          products.filter(
+            (product: ProductType) => product.category === 'phones',
+          ),
+        );
 
         return;
       }
 
       if (productType === 'tablets') {
-        res.json(products.filter((product: ProductType) => product.category === 'tablets'));
+        res.json(
+          products.filter(
+            (product: ProductType) => product.category === 'tablets',
+          ),
+        );
 
         return;
       }
 
       if (productType === 'accessories') {
-        res.json(products.filter(
-          (product: ProductType) => product.category === 'accessories',
-        ));
+        res.json(
+          products.filter(
+            (product: ProductType) => product.category === 'accessories',
+          ),
+        );
 
         return;
       }
@@ -104,8 +114,9 @@ export const getNewProducts = async (
 ): Promise<void> => {
   try {
     const products = await Product.findAll();
-    const newProducts = products.sort(
-      (a: ProductType, b: ProductType) => b.year - a.year).slice(0, 20);
+    const newProducts = products
+      .sort((a: ProductType, b: ProductType) => b.year - a.year)
+      .slice(0, 20);
 
     res.json(newProducts);
   } catch (error) {
@@ -121,7 +132,10 @@ export const getDiscountedProducts = async (
   try {
     const products = await Product.findAll();
     const discountedPhones = products
-      .sort((a: ProductType, b: ProductType) => b.fullPrice - b.price - (a.fullPrice - a.price))
+      .sort(
+        (a: ProductType, b: ProductType) =>
+          b.fullPrice - b.price - (a.fullPrice - a.price),
+      )
       .slice(0, 20);
 
     res.json(discountedPhones);
@@ -207,7 +221,9 @@ export const getRecommendedAccessories = async (
       },
     });
 
-    const accessory = accessories.find((accessory: ProductType) => accessory.itemId === id);
+    const accessory = accessories.find(
+      (accessory: ProductType) => accessory.itemId === id,
+    );
 
     if (accessory === undefined) {
       res.status(404).json({ error: 'Phone not found' });
