@@ -4,4 +4,4 @@ import { getSingleTablet } from '../controllers/tablet.controller';
 
 export const tabletRoutes = express.Router();
 
-tabletRoutes.get('/products/:id', express.json(), getSingleTablet);
+tabletRoutes.get('/tablets/:id', express.json(), getSingleTablet);
