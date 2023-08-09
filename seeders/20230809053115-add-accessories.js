@@ -11,6 +11,7 @@ module.exports = {
       accessories.map((accessory) => ({
         ...accessory,
         description: JSON.stringify(accessory.description),
+        category: 'accessories'
       })),
     );
   },

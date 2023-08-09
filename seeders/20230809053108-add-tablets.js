@@ -1,16 +1,17 @@
 'use strict';
 
-const TABLE_NAME = 'phones';
+const TABLE_NAME = 'tablets';
 
-const phones = require('../api/phones.json');
+const tablets = require('../api/tablets.json');
 
 module.exports = {
   async up(queryInterface) {
     await queryInterface.bulkInsert(
       TABLE_NAME,
-      phones.map((phone) => ({
-        ...phone,
-        description: JSON.stringify(phone.description),
+      tablets.map((tablet) => ({
+        ...tablet,
+        description: JSON.stringify(tablet.description),
+        category: 'tablets'
       })),
     );
   },
