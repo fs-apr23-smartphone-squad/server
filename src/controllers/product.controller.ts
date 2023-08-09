@@ -103,7 +103,7 @@ export const getProductList = async (
       where: {
         category: group,
         name: {
-          [Op.iLike]: %${query as string}%,
+          [Op.iLike]: `${query as string}`,
         },
       },
       order: [[sortBy as string, sortOrder as string]],
