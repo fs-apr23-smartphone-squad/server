@@ -19,6 +19,11 @@ export class Tablets extends Model {
 
   @Column({
     type: DataType.STRING,
+  })
+  category: string;
+
+  @Column({
+    type: DataType.STRING,
     allowNull: false,
   })
   namespaceId: string;

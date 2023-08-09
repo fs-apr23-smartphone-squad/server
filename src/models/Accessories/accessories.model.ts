@@ -20,6 +20,11 @@ export class Accessories extends Model {
   @Column({
     type: DataType.STRING,
   })
+  category: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
   namespaceId: string;
 
   @Column({

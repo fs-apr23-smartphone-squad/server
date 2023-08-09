@@ -1,6 +1,6 @@
 'use strict';
 
-const TABLE_NAME = 'tablets';
+const TABLE_NAME = 'phones';
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -14,6 +14,10 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+      },
+      category: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       namespaceId: {
         type: Sequelize.STRING,
@@ -73,7 +77,7 @@ module.exports = {
       },
       camera: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       zoom: {
         type: Sequelize.STRING,
