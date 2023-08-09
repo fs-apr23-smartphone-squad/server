@@ -4,6 +4,7 @@
 import type { Request, Response } from 'express';
 import type { ProductType } from '../types';
 import { Product } from '../models/Product/product.model';
+import { Op } from 'sequelize';
 
 const validSortByOptions = ['year', 'price'];
 const validSortOrderOptions = ['ASC', 'DESC'];
@@ -14,7 +15,15 @@ export const getProductList = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const { ids, limit, offset, sortBy, sortOrder, productType, group } =
+    const {
+      ids,
+      limit,
+      offset,
+      sortBy,
+      sortOrder,
+      productType,
+      group,
+      query } =
       req.query;
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -93,13 +102,14 @@ export const getProductList = async (
       raw: true,
       where: {
         category: group,
+        name: {
+          [Op.iLike]: `${query as string}`,
+        },
       },
       order: [[sortBy as string, sortOrder as string]],
       limit: Number(limit),
       offset: Number(offset),
     });
-
-    // const category = products.rows.filter(product => product.category === group);
 
     res.json(products);
   } catch (error) {
